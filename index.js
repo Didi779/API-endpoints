@@ -1,37 +1,30 @@
 const express = require('express');
 const app = express();
 
-// Parse JSON data
 app.use(express.json());
 
-// Create a GET endpoint for the root URL ("/")
-app.get('/', (req, res) => {
-  res.send('Welcome to my API!');
-});
+app.post('/sort-characters', (req, res) => {
+  const { data } = req.body;
 
-// Create a POST endpoint
-app.post('/api/endpoint', (req, res) => {
-  try {
-    // Extract the string data from the request body
-    const { data } = req.body;
-
-    if (!data || typeof data !== 'string') {
-      throw new Error('Invalid or missing data in request body');
-    }
-
-    // Convert the string into an array of characters
-    const charArray = data.split('');
-
-    // Return the array as a word in JSON format
-    res.json({ word: charArray.join('') });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+  if (typeof data !== 'string') {
+    return res.status(400).json({ error: 'Invalid input, expected a string.' });
   }
+
+  // Convert string to an array of characters
+  let charArray = data.split('');
+
+  // Sort the array alphabetically
+  charArray.sort();
+
+  // Return the sorted array as JSON
+  res.json({ word: charArray });
 });
 
-// Start the server
-const port = process.env.PORT || 3000;
+app.get('/', (req, res) => {
+  res.send('Welcome to the character sorter!');
+});
+
+const port = 3000;
 app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
