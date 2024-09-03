@@ -1,4 +1,3 @@
-// Import required modules
 const express = require('express');
 const app = express();
 
@@ -7,17 +6,23 @@ app.use(express.json());
 
 // Create a POST endpoint
 app.post('/api/endpoint', (req, res) => {
-  // Extract the string data from the request body
-  const { data } = req.body;
+  try {
+    // Extract the string data from the request body
+    const { data } = req.body;
 
-  // Convert the string into an array of characters
-  const charArray = data.split('');
+    if (!data) {
+      throw new Error('Missing data in request body');
+    }
 
-  // Sort the array alphabetically
-  charArray.sort();
+    // Convert the string into an array of characters
+    const charArray = data.split('');
 
-  // Return the sorted array as a word in JSON format
-  res.json({ word: charArray });
+    // Return the array as a word in JSON format
+    res.json({ word: charArray.join('') });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // Start the server
