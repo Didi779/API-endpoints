@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 
 app.post('/sort-characters', (req, res) => {
+  console.log('Received request:', req.body);
   const { data } = req.body;
 
   if (typeof data !== 'string') {
@@ -17,6 +18,7 @@ app.post('/sort-characters', (req, res) => {
   charArray.sort();
 
   // Return the sorted array as JSON
+  console.log('Sorted array:', charArray);
   res.json({ word: charArray });
 });
 
