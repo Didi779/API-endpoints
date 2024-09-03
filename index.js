@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 // Create a POST endpoint
-app.post('/api/endpoint', (req, res) => {
+app.post('/api/character-sorter', (req, res) =>{
   try {
     // Get the string data from the request body
     const { data } = req.body;
