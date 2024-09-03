@@ -1,29 +1,32 @@
+// Import required modules
 const express = require('express');
 const app = express();
 
+// Parse JSON data
 app.use(express.json());
 
-app.post('/sort-characters', (req, res) => {
+// Create a welcome route
+app.get('/', (req, res) => {
+  res.send('Welcome to Character Sorter');
+});
+
+// Create a POST endpoint
+app.post('/api/endpoint', (req, res) => {
+  // Get the string data from the request body
   const { data } = req.body;
 
-  if (typeof data !== 'string') {
-    return res.status(400).json({ error: 'Invalid input, expected a string.' });
-  }
-  // Convert string to an array of characters
-  let charArray = data.split('');
+  // Convert the string into an array of characters
+  const charArray = data.split('');
 
   // Sort the array alphabetically
   charArray.sort();
 
-  // Return the sorted array as JSON
+  // Return the sorted array as a word in JSON format
   res.json({ word: charArray });
 });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the character sorter!');
-});
-
+// Start the server
 const port = 3000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server started on port ${port}`);
 });
