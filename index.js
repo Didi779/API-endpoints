@@ -10,8 +10,8 @@ app.post('/api/endpoint', (req, res) => {
     // Extract the string data from the request body
     const { data } = req.body;
 
-    if (!data) {
-      throw new Error('Missing data in request body');
+    if (!data || typeof data !== 'string') {
+      throw new Error('Invalid or missing data in request body');
     }
 
     // Convert the string into an array of characters
@@ -21,7 +21,7 @@ app.post('/api/endpoint', (req, res) => {
     res.json({ word: charArray.join('') });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
 
