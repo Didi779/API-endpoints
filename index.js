@@ -9,7 +9,6 @@ app.post('/sort-characters', (req, res) => {
   if (typeof data !== 'string') {
     return res.status(400).json({ error: 'Invalid input, expected a string.' });
   }
-
   // Convert string to an array of characters
   let charArray = data.split('');
 
