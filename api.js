@@ -1,10 +1,13 @@
-import api from './api';
+export function getCharacterSorter(email) {
+  const apiUrl = `https://api-endpoints-ogetqm3wy-didimalang-pheles-projects.vercel.app/api/character-sorter`;
+  const params = { email };
 
-// Call the API request function
-api.getCharacterSorter('didimalangphele@gmail.com')
-  .then(response => {
-    console.log(response);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+  axios.get(apiUrl, { params })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error(error);
+      throw error;
+    });
+}
