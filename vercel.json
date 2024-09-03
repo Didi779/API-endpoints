@@ -5,5 +5,6 @@
       "source": "/(.*)",
       "destination": "/api"
     }
-  ]
+  ],
+  "ignore": ["C:\\Users\\USER\\AppData\\Local\\Microsoft\\Windows\\INetCache\\Low\\Content.IE5"]
 }
